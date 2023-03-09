@@ -2,12 +2,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string
+  username: string
+  email : string
+  status: string
 }
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  if (req.method == 'POST') {
+    //post
+    const {username ,email } = req.body
+    console.log('username : ' +username)
+    console.log('email : '+email)
+
+    res.status(200).json({ username:username,email:email,status: 'This is post request' })
+  }else if (req.method == 'PATCH'){
+    //path
+  }else{
+    res.status(200).json({ username:"",email:"",status: 'request not POST AND PATH' })
+  }
+  
 }
